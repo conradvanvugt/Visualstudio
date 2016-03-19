@@ -22,11 +22,11 @@ namespace DecToFloatingpoint
         private string notatie;
         private int opschuiving;
         private string sign, exponent, fractie;
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOmzetten_Click(object sender, EventArgs e)
         {
             output = "";
             inputsplit = new String[1];
-            input = textBox1.Text;
+            input = txtInput.Text;
             //opsplitsen deel voor de komma en na de komma
             inputsplit = input.Split('.', ',');
             //converteren deel voor de komma naar binair
@@ -34,12 +34,13 @@ namespace DecToFloatingpoint
             output += ".";
             //converteren van decimaal deel naar binair
             output += ConvertNaKomma(inputsplit[1]);
-            label1.Text = output;
+            lblFloating.Text = output;
             //komma verplaatsen, return waarde zijn de nieuwe notatie en hoeveel plaatsen de komma is opgeschoven
             Normaliseer(output, out notatie, out opschuiving);
             MaakFloat(input, notatie, opschuiving, out sign, out exponent, out fractie);
-            label1.Text = sign + " | " + exponent + " | " + fractie;
+            lblFloating.Text = sign + " | " + exponent + " | " + fractie;
         }
+
         private string ConvertVoorKomma(string voorkomma)
         {
             //variablen declareren
@@ -126,6 +127,8 @@ namespace DecToFloatingpoint
             }
             return binair;
         }
+
+
         //Deze methode zal de komma na de eerste 1 verplaatsen
         private void Normaliseer(string binair, out string binairreturn, out int opschuiving)
         {
