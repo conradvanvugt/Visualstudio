@@ -16,5 +16,16 @@ namespace DecToFloatingpoint
         {
             InitializeComponent();
         }
+        private String input;
+        private String[] inputsplit;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            inputsplit = new String[1];
+            input = textBox1.Text;
+            inputsplit = input.Split('.', ',');
+        }
+    }
+    class Converting(String decdeel){
+    
     }
 }
