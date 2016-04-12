@@ -41,7 +41,10 @@ namespace DecToFloatingpoint
             //volledige float maken met alle vorige inforamtie
             d2f.MaakFloat(input, notatie, opschuiving, out sign, out exponent, out fractie);
             //wegschrijven in label
-            lblFloating.Text = sign + " | " + exponent + " | " + fractie;
+            txtSignOut.Text = sign;
+            txtExpOut.Text = exponent;
+            txtfractieOut.Text = fractie;
+
         }
 
         private class decnaarfloat
@@ -154,7 +157,7 @@ namespace DecToFloatingpoint
                 //Bepaal waar de eerst 1 staat
                 PlaatsEerstEen = binair.IndexOf('1');
                 //Kijk hoeveel plaatsen er tussen de komma en de een staan
-                opschuiving = PlaatsKomma - PlaatsEerstEen - 1;
+                opschuiving = PlaatsKomma + PlaatsEerstEen - 1;
                 //Verplaats komma na de eerste 1
                 binairreturn = binair.Substring(PlaatsEerstEen, 1) + "." + binair.Substring(PlaatsEerstEen + 1, binair.Length - PlaatsEerstEen - 1);
             }
@@ -186,9 +189,64 @@ namespace DecToFloatingpoint
                 fractie = fractie.PadRight(23, '0');
             }
         }
+        private class floatnaardec { 
+            public String puntopschuiven(String exponent, String fractie){
+                int expo;
+            int exponentdec = 0;
+                int opschuiving;
+            for (int i=exponent.Length; i > 0; i--)
+            {
+                expo = int.Parse(exponent.Substring(i - 1, 1));
+                exponentdec += Convert.ToInt32(expo *(Math.Pow(2.0, Convert.ToDouble(exponent.Length - i))));
+            }
+            opschuiving = exponentdec - 127;
+            fractie = "1" + fractie;
+            fractie = fractie.Substring(0, opschuiving +1) + "." + fractie.Substring(opschuiving +1, fractie.Length - opschuiving -1);
+                
+                fractie = fractie.TrimEnd('0');
+                MessageBox.Show(fractie);
+            return fractie;
+
+        }
+            public void voorkomma(String voorkomma) {
+
+                int voork;
+                int voorkommadec = 0;
+                for (int i = voorkomma.Length; i > 0; i--)
+                {
+                    voork = int.Parse(voorkomma.Substring(i - 1, 1));
+                    voorkommadec += Convert.ToInt32(voork * (Math.Pow(2.0, Convert.ToDouble(voorkomma.Length - i))));
+                }
+                MessageBox.Show(voorkommadec.ToString());
+            }
+            public void nakomma(String nakomma)
+            {
+
+                int nak;
+                int nakommadec = 0;
+                for (int i = nakomma.Length; i > 0; i--)
+                {
+                    nak = int.Parse(nakomma.Substring(i - 1, 1));
+                    nakommadec += Convert.ToInt32(nak * (Math.Pow(2.0, Convert.ToDouble(nakomma.Length - i))));
+                }
+                MessageBox.Show(nakommadec.ToString());
+            }
+            }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string[] test = new String[1];
+
+        floatnaardec kappa = new floatnaardec();
+            test = kappa.puntopschuiven(txtExpOut.Text, txtfractieOut.Text).Split('.');
+            kappa.voorkomma(test[0]);
+            kappa.nakomma(test[1]);
+        }
+        }
     }
 
-}
+
+
     
 
 

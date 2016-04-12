@@ -30,8 +30,11 @@
         {
             this.txtInput = new System.Windows.Forms.TextBox();
             this.btnOmzetten = new System.Windows.Forms.Button();
-            this.lblFloating = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtSignOut = new System.Windows.Forms.TextBox();
+            this.txtExpOut = new System.Windows.Forms.TextBox();
+            this.txtfractieOut = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtInput
@@ -51,15 +54,6 @@
             this.btnOmzetten.UseVisualStyleBackColor = true;
             this.btnOmzetten.Click += new System.EventHandler(this.btnOmzetten_Click);
             // 
-            // lblFloating
-            // 
-            this.lblFloating.AutoSize = true;
-            this.lblFloating.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFloating.Location = new System.Drawing.Point(12, 64);
-            this.lblFloating.Name = "lblFloating";
-            this.lblFloating.Size = new System.Drawing.Size(0, 24);
-            this.lblFloating.TabIndex = 2;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -70,13 +64,50 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Om te zetten getal:";
             // 
+            // txtSignOut
+            // 
+            this.txtSignOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSignOut.Location = new System.Drawing.Point(12, 84);
+            this.txtSignOut.Name = "txtSignOut";
+            this.txtSignOut.Size = new System.Drawing.Size(20, 29);
+            this.txtSignOut.TabIndex = 4;
+            // 
+            // txtExpOut
+            // 
+            this.txtExpOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExpOut.Location = new System.Drawing.Point(38, 84);
+            this.txtExpOut.Name = "txtExpOut";
+            this.txtExpOut.Size = new System.Drawing.Size(100, 29);
+            this.txtExpOut.TabIndex = 5;
+            // 
+            // txtfractieOut
+            // 
+            this.txtfractieOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtfractieOut.Location = new System.Drawing.Point(144, 84);
+            this.txtfractieOut.Name = "txtfractieOut";
+            this.txtfractieOut.Size = new System.Drawing.Size(269, 29);
+            this.txtfractieOut.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(251, 196);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 261);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtfractieOut);
+            this.Controls.Add(this.txtExpOut);
+            this.Controls.Add(this.txtSignOut);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblFloating);
             this.Controls.Add(this.btnOmzetten);
             this.Controls.Add(this.txtInput);
             this.Name = "Form1";
@@ -90,8 +121,11 @@
 
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Button btnOmzetten;
-        private System.Windows.Forms.Label lblFloating;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSignOut;
+        private System.Windows.Forms.TextBox txtExpOut;
+        private System.Windows.Forms.TextBox txtfractieOut;
+        private System.Windows.Forms.Button button1;
     }
 }
 
