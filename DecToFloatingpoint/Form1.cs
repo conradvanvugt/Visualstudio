@@ -23,13 +23,86 @@ namespace DecToFloatingpoint
         private string notatie;
         private int opschuiving;
         private string sign, exponent, fractie;
-        private void btnOmzetten_Click(object sender, EventArgs e)
+
+        private void txtInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '1' || e.KeyChar == '2' || e.KeyChar == '3' || e.KeyChar == '4'
+                || e.KeyChar == '5' || e.KeyChar == '6' || e.KeyChar == '7' || e.KeyChar == '8'
+                || e.KeyChar == '9' || e.KeyChar == '0' || e.KeyChar == (char)8 ||  e.KeyChar == ',')
+            {
+                if (txtInput.Text.Contains(',') && e.KeyChar == ',')
+                {
+                    e.Handled = true;
+                }
+                else {
+                    e.Handled = false;
+                }
+            }
+            else {
+                e.Handled = true;
+            }
+        }
+
+        private void txtFractieIn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '1' || e.KeyChar == '0' || e.KeyChar == (char)8)
+            {
+
+                if (txtFractieIn.Text.Length >= 26 && e.KeyChar != (char)8)
+                {
+                    e.Handled = true;
+                }
+                else {
+                    e.Handled = false;
+                }
+            }
+            else {
+                e.Handled = true;
+            }
+        }
+
+        private void txtExpIn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '1' || e.KeyChar == '0' || e.KeyChar == (char)8)
+            {
+                if (txtExpIn.Text.Length >= 8 && e.KeyChar != (char)8)
+                {
+                    e.Handled = true;
+                }
+                else {
+                    e.Handled = false;
+                }
+            }
+            else {
+                e.Handled = true;
+            }
+        }
+
+        private void txtSignIn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '1' || e.KeyChar == '0' || e.KeyChar == (char)8)
+            {
+                if (txtSignIn.Text.Length >= 1 && e.KeyChar != (char)8)
+                {
+                    e.Handled = true;
+                }
+                else {
+                    e.Handled = false;
+                }
+            }
+            else {
+                e.Handled = true;
+            }
+        }
+
+
+        private void btnFloat_Click(object sender, EventArgs e)
         {
             decnaarfloat d2f = new decnaarfloat();
             inputsplit = new String[1];
             input = txtInput.Text;
             //opsplitsen deel voor de komma en na de komma
-            inputsplit = input.Split('.', ',');
+            inputsplit = input.Split(',');
             //converteren deel voor de komma naar binair
             outputvoork = d2f.ConvertVoorKomma(inputsplit[0]);
             //converteren van decimaal deel naar binair
@@ -43,10 +116,22 @@ namespace DecToFloatingpoint
             //wegschrijven in label
             txtSignOut.Text = sign;
             txtExpOut.Text = exponent;
-            txtfractieOut.Text = fractie;
-
+            txtFractieOut.Text = fractie;
+            
         }
 
+        private void btnbinair_Click(object sender, EventArgs e)
+        {
+            string[] arromzet = new String[1];
+            double dblDecOut;
+            floatnaardec omzetdec = new floatnaardec();
+            arromzet = omzetdec.puntopschuiven(txtExpIn.Text, txtFractieIn.Text).Split('.');
+            dblDecOut = omzetdec.voorkomma(arromzet[0]) + omzetdec.nakomma(arromzet[1]);
+            dblDecOut = omzetdec.Sign(txtSignIn.Text, dblDecOut);
+            txtGetalOut.Text = dblDecOut.ToString();
+        }
+
+        //klasse die decimaal naar float omzet
         private class decnaarfloat
         {
             public string ConvertVoorKomma(string voorkomma)
@@ -132,7 +217,7 @@ namespace DecToFloatingpoint
 
                         }
                         //oneindige loop voorkomen
-                        if (binair.Length == 32 - 1 - binvoork.Length)
+                        if (binair.Length == 28 - 1 - binvoork.Length)
                         {
                             stopwhile = true;
 
@@ -189,61 +274,64 @@ namespace DecToFloatingpoint
                 fractie = fractie.PadRight(23, '0');
             }
         }
-        private class floatnaardec { 
-            public String puntopschuiven(String exponent, String fractie){
-                int expo;
-            int exponentdec = 0;
-                int opschuiving;
-            for (int i=exponent.Length; i > 0; i--)
-            {
-                expo = int.Parse(exponent.Substring(i - 1, 1));
-                exponentdec += Convert.ToInt32(expo *(Math.Pow(2.0, Convert.ToDouble(exponent.Length - i))));
-            }
-            opschuiving = exponentdec - 127;
-            fractie = "1" + fractie;
-            fractie = fractie.Substring(0, opschuiving +1) + "." + fractie.Substring(opschuiving +1, fractie.Length - opschuiving -1);
-                
-                fractie = fractie.TrimEnd('0');
-                MessageBox.Show(fractie);
-            return fractie;
 
-        }
-            public void voorkomma(String voorkomma) {
+        //klasse die float naar decimaal omzet
+        private class floatnaardec
+        {
+            public String puntopschuiven(String exponent, String fractie)
+            {
+                int expo;
+                int exponentdec = 0;
+                int opschuiving;
+                for (int i = exponent.Length; i > 0; i--)
+                {
+                    expo = int.Parse(exponent.Substring(i - 1, 1));
+                    exponentdec += Convert.ToInt32(expo * (Math.Pow(2.0, Convert.ToDouble(exponent.Length - i))));
+                }
+                opschuiving = exponentdec - 127;
+                fractie = "1" + fractie;
+                fractie = fractie.Substring(0, opschuiving + 1) + "." + fractie.Substring(opschuiving + 1, fractie.Length - opschuiving - 1);
+
+                fractie = fractie.TrimEnd('0');
+                return fractie;
+
+            }
+            public double voorkomma(String voorkomma)
+            {
 
                 int voork;
-                int voorkommadec = 0;
+                double voorkommadec = 0;
                 for (int i = voorkomma.Length; i > 0; i--)
                 {
                     voork = int.Parse(voorkomma.Substring(i - 1, 1));
                     voorkommadec += Convert.ToInt32(voork * (Math.Pow(2.0, Convert.ToDouble(voorkomma.Length - i))));
                 }
-                MessageBox.Show(voorkommadec.ToString());
+                return voorkommadec;
             }
-            public void nakomma(String nakomma)
+            public double nakomma(String nakomma)
             {
-
-                int nak;
-                int nakommadec = 0;
-                for (int i = nakomma.Length; i > 0; i--)
+                double getal= 0.0; 
+                for (int i = nakomma.Length - 1; i > 0; i--)
                 {
-                    nak = int.Parse(nakomma.Substring(i - 1, 1));
-                    nakommadec += Convert.ToInt32(nak * (Math.Pow(2.0, Convert.ToDouble(nakomma.Length - i))));
+                    if( int.Parse(nakomma.Substring(i, 1)) == 1)
+                    {
+                       getal += Math.Pow(i + 1.0, -2.0);
+                    }
                 }
-                MessageBox.Show(nakommadec.ToString());
+                return getal;
             }
+            public double Sign(String sign, Double DecOut)
+            {
+                if(sign == "1")
+                {
+                    DecOut = 0 - DecOut;
+
+                }
+                return DecOut;
             }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string[] test = new String[1];
-
-        floatnaardec kappa = new floatnaardec();
-            test = kappa.puntopschuiven(txtExpOut.Text, txtfractieOut.Text).Split('.');
-            kappa.voorkomma(test[0]);
-            kappa.nakomma(test[1]);
-        }
         }
     }
+}
 
 
 
