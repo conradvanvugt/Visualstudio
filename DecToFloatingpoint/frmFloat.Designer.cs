@@ -1,6 +1,6 @@
 ﻿namespace DecToFloatingpoint
 {
-    partial class Form1
+    partial class frmFloat
     {
         /// <summary>
         /// Required designer variable.
