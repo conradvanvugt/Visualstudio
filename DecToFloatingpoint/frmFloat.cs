@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Gemaakt door Conrad Van Vugt
+//Klassen in ClassLibraryConradVanVugt.cs
 
 namespace DecToFloatingpoint
 {
@@ -81,7 +83,7 @@ namespace DecToFloatingpoint
                 e.Handled = true;
             }
         }
-        #endregion
+        
         private void txtSignIn_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '1' || e.KeyChar == '0' || e.KeyChar == (char)8)
@@ -99,25 +101,37 @@ namespace DecToFloatingpoint
             }
         }
 
+        #endregion
 
+        #region knoppen
         private void btnFloat_Click(object sender, EventArgs e)
         {
-            decnaarfloat d2f = new decnaarfloat();
+            //variablen declareren
+            decimaalnaarfloat d2f = new decimaalnaarfloat();
             inputsplit = new String[1];
             input = txtInput.Text;
+
+            //Voor klassen zie ClassLibraryConradVanVugt.cs
+
             //opsplitsen deel voor de komma en na de komma
             inputsplit = input.Split(',');
+
             //converteren deel voor de komma naar binair
             outputvoork = d2f.ConvertVoorKomma(inputsplit[0]);
+           
             //converteren van decimaal deel naar binair
             outputnak = d2f.ConvertNaKomma(inputsplit[1], outputvoork);
+            
             //output samen nemen
             output = outputvoork + "." + outputnak;
+            
             //komma verplaatsen, return waarde zijn de nieuwe notatie en hoeveel plaatsen de komma is opgeschoven
             d2f.Normaliseer(output, out notatie, out opschuiving);
+            
             //volledige float maken met alle vorige inforamtie
             d2f.MaakFloat(input, notatie, opschuiving, out sign, out exponent, out fractie);
-            //wegschrijven in label
+            
+            //wegschrijven in textboxen
             txtSignOut.Text = sign;
             txtExpOut.Text = exponent;
             txtFractieOut.Text = fractie;
@@ -126,15 +140,27 @@ namespace DecToFloatingpoint
 
         private void btnbinair_Click(object sender, EventArgs e)
         {
+            //Variablen aanmaken
             string[] arromzet = new String[1];
             double dblDecOut;
-            floatnaardec omzetdec = new floatnaardec();
+            floatnaardecimaal omzetdec = new floatnaardecimaal();
+
+            //Voor klassen zie ClassLibraryConradVanVugt.cs
+
+
+            //Punt opschuiven en opslitsen in twee delen
             arromzet = omzetdec.puntopschuiven(txtExpIn.Text, txtFractieIn.Text).Split('.');
+            
+            //Deel voor de komma omzetten naar een getal en optellen bij het deel na de komma omgezet in een getal
             dblDecOut = omzetdec.voorkomma(arromzet[0]) + omzetdec.nakomma(arromzet[1]);
+
+            //Het teken bepalen
             dblDecOut = omzetdec.Sign(txtSignIn.Text, dblDecOut);
+
+            //Wegschrijven naar tekstbox
             txtGetalOut.Text = dblDecOut.ToString();
         }
-
+        #endregion
 
     }
 }

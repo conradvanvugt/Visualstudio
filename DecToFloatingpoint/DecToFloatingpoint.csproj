@@ -52,9 +52,6 @@
     <Reference Include="ClasseesFloat">
       <HintPath>..\..\ClasseesFloat\ClasseesFloat\obj\Debug\ClasseesFloat.dll</HintPath>
     </Reference>
-    <Reference Include="ClassLibraryConradVanVugt">
-      <HintPath>.\ClassLibraryConradVanVugt.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassLibraryConradVanVugt.cs" />
     <Compile Include="frmFloat.cs">
       <SubType>Form</SubType>
     </Compile>
